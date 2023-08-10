@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!-- در این قسمت می خواهیم چیزی که در لیاوت ادمین قرار دادیم را بنویسیم(در بالا به لیاوت ادمین وصل شد) مثل چیز های اختصاصی که مربوط به هد این صفحه می باشد-->
+@section Pre{
+
+    <!-- BEGIN: Head-->
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google.">
+        <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template, eCommerce dashboard, analytic dashboard">
+        <meta name="author" content="ThemeSelect">
+        <title>متریالایز | الگوی منوی تاریک عمودی | فرم اعتبارسنجی </title>
+        <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon-152x152.png">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon/favicon-32x32.png">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- BEGIN: VENDOR CSS-->
+        <link rel="stylesheet" type="text/css" href="vendors/vendors.min.css">
+        <link rel="stylesheet" type="text/css" href="vendors/flag-icon/css/flag-icon.min.css">
+        <!-- END: VENDOR CSS-->
+        <link rel="stylesheet" type="text/css" href="css-rtl/style-rtl.min.css">
+        <!-- BEGIN: Page Level CSS-->
+        <link rel="stylesheet" type="text/css" href="css-rtl/themes/vertical-dark-menu-template/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="css-rtl/themes/vertical-dark-menu-template/style.min.css">
+        <!-- END: Page Level CSS-->
+        <!-- BEGIN: Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="css-rtl/custom/custom.css">
+        <!-- END: Custom CSS-->
+    </head>
+    <!-- END: Head-->
+}
+<div class="row">
+    <div class="col s12">
+        <div id="html-validations" class="card card-tabs">
+            <div class="card-content">
+                <div class="card-title">
+                    <div class="row">
+                        <div class="col s12 m6 l10">
+                            <h4 class="card-title"> ثبت اطلاعات</h4>
+                        </div>
+                        <div class="col s12 m6 l2">
+                        </div>
+                    </div>
+                </div>
+                <div id="html-view-validations">
+                    <form class="formValidate0" id="formValidate0" method="get">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="uname0">نام *</label>
+                                <input class="validate" required id="uname0" name="uname0" type="text">
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="uname0">نام خانوداگی*</label>
+                                <input class="validate" required id="uname0" name="uname0" type="text">
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="cemail0">ایمیل *</label>
+                                <input class="validate" required id="cemail0" type="email" name="cemail0">
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="password0">رمز عبور *</label>
+                                <input class="validate" required id="password0" type="password" name="password0">
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="cpassword0">رمز عبور را تأیید کنید *</label>
+                                <input class="validate" required id="cpassword0" type="password" name="cpassword0">
+                            </div>
+                           
+                            <div class="col s12">
+                                <label for="role">نقش</label>
+                                <select class="error validate" id="role" name="role" required>
+                                    <option value="" disabled selected>نمایه خود را انتخاب کنید</option>
+                                    <option value="1">استاد</option>
+                                    <option value="2">دانشجو</option>
+                                </select>
+                                <div class="input-field">
+                                </div>
+                            </div>
+                            
+                            <div class="col s12">
+                                <p>جنسیت</p>
+                                <p>
+                                    <label>
+                                        <input class="validate" required name="gender0" type="radio" checked />
+                                        <span>مرد</span>
+                                    </label>
+                                </p>
+
+                                <label>
+                                    <input class="validate" required name="gender0" type="radio" />
+                                    <span>زن</span>
+                                </label>
+                                <div class="input-field">
+                                </div>
+                            </div>
+                            <div class=" row ">
+                                <div class="input-field col s12">
+                                <label class="contact-input" for="fn"> عکس </label>
+                                <input id="email" type="file" name="pic" />
+                            </div>
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light right iransans" type="submit" name="action">
+                                    ارسال
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <!-- BEGIN VENDOR JS-->
+    <script src="js/vendors.min.js"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <script src="vendors/chartjs/chart.min.js"></script>
+    <script src="vendors/chartist-js/chartist.min.js"></script>
+    <script src="vendors/chartist-js/chartist-plugin-tooltip.js"></script>
+    <script src="vendors/chartist-js/chartist-plugin-fill-donut.min.js"></script>
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN THEME  JS-->
+    <script src="js/plugins.min.js"></script>
+    <script src="js/search.min.js"></script>
+    <script src="js-rtl/custom/custom-script-rtl.min.js"></script>
+    <script src="js/scripts/customizer.min.js"></script>
+    <!-- END THEME  JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <script src="js-rtl/scripts/dashboard-modern-rtl.js"></script>
+    <script src="js/scripts/intro.min.js"></script>
+    <!-- END PAGE LEVEL JS-->
+}
