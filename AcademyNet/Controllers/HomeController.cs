@@ -15,7 +15,7 @@ namespace AcademyNet.Controllers
 
         public IActionResult Index()
         {
-            return View("Teacher/Register");
+            return View();
         }
 
         public IActionResult Privacy()
