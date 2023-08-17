@@ -9,9 +9,9 @@ namespace AcademyNet.Controllers.Admin
             return View();
         }
 
-        public IActionResult Register()
+        public IActionResult Create()
         {
-            return View("Register");
+            return View("Create");
         }
     }
 }
