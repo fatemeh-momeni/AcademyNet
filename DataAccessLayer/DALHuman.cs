@@ -6,8 +6,8 @@ namespace DataAccessLayer
         public void Create(Human humans)
         {
             DB db = new DB();
-            db.humans.Add(humans);
-            db.SaveChanges();
+            db.Human.Add(humans);
+                db.SaveChanges();
         }
 
     }

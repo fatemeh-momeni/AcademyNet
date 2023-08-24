@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!-- در این قسمت می خواهیم چیزی که در لیاوت ادمین قرار دادیم را بنویسیم(در بالا به لیاوت ادمین وصل شد) مثل چیز های اختصاصی که مربوط به هد این صفحه می باشد-->
@@ -47,32 +47,32 @@
                     </div>
                 </div>
                 <div id="html-view-validations">
-                    <form class="formValidate0" id="formValidate0" method="get">
+                    <form asp-action="Create" class="formValidate0"  method="post"  enctype="multipart/form-data">
                         <div class="row">
                             <div class="input-field col s12">
                                 <label for="uname0">نام *</label>
-                                <input class="validate" required id="uname0" name="uname0" type="text">
+                                <input class="validate" required id="uname0" name="Name" type="text">
                             </div>
                             <div class="input-field col s12">
                                 <label for="uname0">نام خانوداگی*</label>
-                                <input class="validate" required id="uname0" name="uname0" type="text">
+                                <input class="validate" required id="uname0" name="Family" type="text">
                             </div>
                             <div class="input-field col s12">
                                 <label for="cemail0">ایمیل *</label>
-                                <input class="validate" required id="cemail0" type="email" name="cemail0">
+                                <input class="validate" required id="cemail0" type="Email" name="Email">
                             </div>
                             <div class="input-field col s12">
                                 <label for="password0">رمز عبور *</label>
-                                <input class="validate" required id="password0" type="password" name="password0">
+                                <input class="validate" required id="password0" type="Password" name="Password">
                             </div>
                             <div class="input-field col s12">
                                 <label for="cpassword0">رمز عبور را تأیید کنید *</label>
-                                <input class="validate" required id="cpassword0" type="password" name="cpassword0">
+                                <input class="validate" required id="cpassword0" type="Password" name="Password">
                             </div>
                            
                             <div class="col s12">
                                 <label for="role">نقش</label>
-                                <select class="error validate" id="role" name="role" required>
+                                <select class="error validate" id="role" name="Role" required>
                                     <option value="" disabled selected>نمایه خود را انتخاب کنید</option>
                                     <option value="1">استاد</option>
                                     <option value="2">دانشجو</option>
@@ -85,13 +85,13 @@
                                 <p>جنسیت</p>
                                 <p>
                                     <label>
-                                        <input class="validate" required name="gender0" type="radio" checked />
+                                        <input class="validate" required name="gender.Male" type="radio" />
                                         <span>مرد</span>
                                     </label>
                                 </p>
 
                                 <label>
-                                    <input class="validate" required name="gender0" type="radio" />
+                                    <input class="validate" required name="gender.Female" type="radio" />
                                     <span>زن</span>
                                 </label>
                                 <div class="input-field">
@@ -100,7 +100,7 @@
                             <div class=" row ">
                                 <div class="input-field col s12">
                                 <label class="contact-input" for="fn"> عکس </label>
-                                <input id="email" type="file" name="pic" />
+                                    <input id="email" type="file" name="Picture" />
                             </div>
                             <div class="input-field col s12">
                                 <button class="btn waves-effect waves-light right iransans" type="submit" name="action">
