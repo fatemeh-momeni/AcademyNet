@@ -14,9 +14,9 @@ namespace DataAccessLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.useSqlite("Data Source=blogging.db");
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-K2MKENH3;Initial Catalog=AcademyNet;Integrated Security=true ; User ID=.; Password=123");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-K2MKENH3;Initial Catalog=AcademyNet;Integrated Security=true ; User ID=sa; Password=123;Encrypt=False");
             base.OnConfiguring(optionsBuilder);
         }
-       public DbSet<Human> humans { get; set; } 
+       public DbSet<Human> Human { get; set; } 
     }
 }
