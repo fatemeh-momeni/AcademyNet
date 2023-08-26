@@ -2,13 +2,14 @@
 using Business_Entity;
 using BusinessLogicLayer;
 using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json.Linq;
 
 namespace AcademyNet.Controllers.Admin
 {
-    public class TeacherController : Controller
+    public class HumanController : Controller
     {
         private IWebHostEnvironment webHostEnvironment;
-        public TeacherController(IWebHostEnvironment _webHostEnvironment)
+        public HumanController(IWebHostEnvironment _webHostEnvironment)
         {
             webHostEnvironment = _webHostEnvironment;
         }
@@ -20,6 +21,12 @@ namespace AcademyNet.Controllers.Admin
         public IActionResult Create()
         {
             return View("Create");
+        }
+        public IActionResult ShowAllTeachersAccount()
+        {
+            BLLHuman bLLHuman = new BLLHuman();
+
+            return View("ShowTeachersAccount",bLLHuman.Read());
         }
         [HttpPost]
         public void Create(Models.Human human)
@@ -39,6 +46,26 @@ namespace AcademyNet.Controllers.Admin
                 businessHuman.Picture = uploadFile.Upload(human.Picture);
             }
             bLLHuman.Create(businessHuman);
+
+        }
+        public JsonResult HumanSearchJson()
+        {
+            return Json(new { redirect = "Search" });
+        }
+        public IActionResult Search(string tags)
+        {
+            JArray jsonArray= new JArray(tags);
+            dynamic data = JArray.Parse(jsonArray[0].ToString());
+            List<string> split = new List<string>();
+            foreach (dynamic item in data)
+            {
+                split.Add(item.tag.ToString()); 
+
+            }
+            BLLHuman bLLHuman= new BLLHuman();
+            List<Human> humans = bLLHuman.Search(split);
+            return View("ShowTeachersAccount", humans);
+            //Redirect();
 
 
         }

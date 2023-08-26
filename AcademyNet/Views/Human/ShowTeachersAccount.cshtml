@@ -1,0 +1,139 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model List<Business_Entity.Human>
+@section pre{
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google.">
+    <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template, eCommerce dashboard, analytic dashboard">
+    <meta name="author" content="ThemeSelect">
+    <title>متریالایز | الگوی منو شیب عمودی | جدول داده </title>
+    <link rel="apple-touch-icon" href="~/images/favicon/apple-touch-icon-152x152.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon/favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- BEGIN: VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="~/vendors/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="~/vendors/flag-icon/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="~/vendors/data-tables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/vendors/data-tables/css/select.dataTables.min.css">
+    <!-- END: VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="~/css-rtl/style-rtl.min.css">
+    <!-- BEGIN: Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="~/css-rtl/themes/vertical-gradient-menu-template/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css-rtl/themes/vertical-gradient-menu-template/style.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/pages/data-tables.min.css">
+    <!-- END: Page Level CSS-->
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="~/css-rtl/custom/custom.css">
+    <!-- END: Custom CSS-->
+    <style>
+        .dataTables_filter {
+            display: none;
+        }
+
+        #data-table-simple_length {
+            display: none;
+        }
+    </style>
+}
+
+
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div id="button-trigger" class="card card card-default scrollspy">
+            <div class="card-content">
+                <h4 class="card-title">لیست اساتید</h4>
+                <div class="chips chips-placeholder input-field"><input class="input" id="9474de9d-c5a1-aa61-66cd-dee182b74757" placeholder="+Tag"></div>
+               
+                <a id="btn1" class="waves-effect waves-light btn-small mb-1 mr-1">جستجو</a>
+
+                <div class="row">
+                    <div class="col s12">
+                    </div>
+                    <div class="col s12">
+                        <table id="data-table-simple" class="display">
+                            <thead>
+                                <tr>
+                                    <th>نام</th>
+                                    <th>نام خانوادگی</th>
+                                    <th>ایمیل</th>
+                                    <th>تصویر</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var i in Model)
+                                    {
+                                                <tr>
+                                                    <td>@i.Name</td>
+                                                    <td>@i.Family</td>
+                                                    <td>@i.Email</td>
+                                                    <td><img src="~/images/Human/@i.Picture" style="width:50px; height:50px;"></td>
+
+                                                </tr>
+                                    }
+                                }
+
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>نام</th>
+                                    <th>نام خانوادگی</th>
+                                    <th>ایمیل</th>
+                                    <th> تصویر</th>
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+
+    <!-- BEGIN PAGE VENDOR JS-->
+    <script src="~/vendors/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/data-tables/js/dataTables.select.min.js"></script>
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN THEME  JS-->
+    <script src="~/js/plugins.min.js"></script>
+    <script src="~/js/search.min.js"></script>
+    <script src="~/js-rtl/custom/custom-script-rtl.min.js"></script>
+    <script src="~/js/scripts/customizer.min.js"></script>
+    <!-- END THEME  JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <script src="~/js/scripts/data-tables.min.js"></script>
+    <!-- END PAGE LEVEL JS-->
+    <!--Search-->
+
+    <script src="~/js/scripts/ui-chips.min.js"></script>
+    <!--EndSearch-->
+    <script>
+        $(document).ready(function () {
+            $("#btn1").click(function () {
+                $.ajax({
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    url: "@Url.Action("HumanSearchJson", "Human")",
+                    success: function (data) {
+                        window.location = data.redirect + "?" + 'tags=' + JSON.stringify(M.Chips.getInstance($(".chips")).chipsData);
+                    },
+                });
+            });
+        });
+    </script>
+
+    <!-- END PAGE LEVEL JS-->
+}
