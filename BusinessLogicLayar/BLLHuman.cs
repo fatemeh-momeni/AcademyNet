@@ -12,6 +12,11 @@ namespace BusinessLogicLayer
             DALHuman dALHuman = new DALHuman();
             dALHuman.Create (human);
         }
+        public void Update(Human human)
+        {
+            DALHuman dALHuman = new DALHuman();
+            dALHuman.Update(human);
+        }
         public List<Human> Read()
         {
             DALHuman dALHuman = new DALHuman();

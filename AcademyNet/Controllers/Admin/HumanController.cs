@@ -48,6 +48,25 @@ namespace AcademyNet.Controllers.Admin
             bLLHuman.Create(businessHuman);
 
         }
+        public void Update(Models.Human human)
+        {
+            BLLHuman bLLHuman = new BLLHuman();
+
+            Business_Entity.Human businessHuman = new Human();
+            businessHuman.Name = human.Name;
+            businessHuman.Family = human.Family;
+            businessHuman.Email = human.Email;
+            businessHuman.gender = (Human.Gender)human.gender;
+            businessHuman.Password = human.Password;
+            businessHuman.role = (Human.Role)human.role;
+            UploadFile uploadFile = new UploadFile(webHostEnvironment);
+            if (human.Picture != null)
+            {
+                businessHuman.Picture = uploadFile.Upload(human.Picture);
+            }
+            bLLHuman.Update(businessHuman);
+
+        }
         public JsonResult HumanSearchJson()
         {
             return Json(new { redirect = "Search" });

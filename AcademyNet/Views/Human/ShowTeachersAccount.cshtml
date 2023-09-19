@@ -50,12 +50,18 @@
             <div class="card-content">
                 <h4 class="card-title">لیست اساتید</h4>
                 <div class="chips chips-placeholder input-field"><input class="input" id="9474de9d-c5a1-aa61-66cd-dee182b74757" placeholder="+Tag"></div>
-               
-                <a id="btn1" class="waves-effect waves-light btn-small mb-1 mr-1">جستجو</a>
+                <div class="row">
+                    <div class="col s12">
+                        <a id="btn1" class="waves-effect waves-light btn-small mb-1 mr-1">جستجو</a>
+                    </div>
+                </div>
+                <!-- Modal Structure -->
 
+                <br />
                 <div class="row">
                     <div class="col s12">
                     </div>
+
                     <div class="col s12">
                         <table id="data-table-simple" class="display">
                             <thead>
@@ -64,20 +70,21 @@
                                     <th>نام خانوادگی</th>
                                     <th>ایمیل</th>
                                     <th>تصویر</th>
-
+                                    <th>ویرایش      </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
                                     foreach (var i in Model)
                                     {
-                                                <tr>
-                                                    <td>@i.Name</td>
-                                                    <td>@i.Family</td>
-                                                    <td>@i.Email</td>
-                                                    <td><img src="~/images/Human/@i.Picture" style="width:50px; height:50px;"></td>
-
-                                                </tr>
+                                        <tr>
+                                            <td style="display : none">@i.Id</td>
+                                            <td>@i.Name</td>
+                                            <td>@i.Family</td>
+                                            <td>@i.Email</td>
+                                            <td><img src="~/images/Human/@i.Picture" style="width:50px; height:50px;"></td>
+                                            <td><a class="mb-6 btn-floating waves-effect waves-light purple lightrn-1 modal-trigger btnEdit" href="#modal1"><i class="material-icons">edit</i> </a></td>
+                                        </tr>
                                     }
                                 }
 
@@ -100,6 +107,81 @@
     </div>
 </div>
 
+<div id="modal1" class="modal" style="display: none">
+    <div class="modal-content">
+        <h4>ویرایش</h4>
+        <div id="html-view-validations">
+            <form asp-action="Update" class="formValidate0" id="edit" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="uname0"></label>
+                        <input class="validate" required id="fn" name="Name" type="text">
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="uname0"></label>
+                        <input class="validate" required id="ln" name="Family" type="text">
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="cemail0"></label>
+                        <input class="validate" required id="em" type="Email" name="Email">
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="password0"></label>
+                        <input class="validate" required id="pass1" type="Password" name="Password">
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="cpassword0">رمز عبور را تأیید کنید *</label>
+                        <input class="validate" required id="pass2" type="Password" name="Password">
+                    </div>
+
+                    <div class="col s12">
+                        <label for="role">نقش</label>
+                        <select class="error validate" id="role" name="Role" required>
+                            <option value="" disabled selected>نمایه خود را انتخاب کنید</option>
+                            <option value="1">استاد</option>
+                            <option value="2">دانشجو</option>
+                        </select>
+                        <div class="input-field">
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <p>جنسیت</p>
+                        <p>
+                            <label>
+                                <input class="validate" id="gender" required name="gender.Male" type="radio" />
+                                <span>مرد</span>
+                            </label>
+                        </p>
+
+                        <label>
+                            <input class="validate" id="gender" required name="gender.Female" type="radio" />
+                            <span>زن</span>
+                        </label>
+                        <div class="input-field">
+                        </div>
+                    </div>
+                    <div class=" row ">
+                        <div class="input-field col s12">
+                            <label class="contact-input" for="fn"> عکس </label>
+                            <input id="pic" type="file" name="Picture" />
+                        </div>
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light right iransans" type="submit" name="action">
+                                ارسال
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
+
+
+
 @section script{
 
     <!-- BEGIN PAGE VENDOR JS-->
@@ -107,12 +189,6 @@
     <script src="~/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
     <script src="~/vendors/data-tables/js/dataTables.select.min.js"></script>
     <!-- END PAGE VENDOR JS-->
-    <!-- BEGIN THEME  JS-->
-    <script src="~/js/plugins.min.js"></script>
-    <script src="~/js/search.min.js"></script>
-    <script src="~/js-rtl/custom/custom-script-rtl.min.js"></script>
-    <script src="~/js/scripts/customizer.min.js"></script>
-    <!-- END THEME  JS-->
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="~/js/scripts/data-tables.min.js"></script>
     <!-- END PAGE LEVEL JS-->
@@ -120,8 +196,25 @@
 
     <script src="~/js/scripts/ui-chips.min.js"></script>
     <!--EndSearch-->
+    <!-- END PAGE LEVEL JS-->
+    <script src="~/js/scripts/advance-ui-modals.min.js"></script>
+
+
     <script>
-        $(document).ready(function () {
+                $(document).ready(function () {
+            $(".btnEdit").click(function () {
+                //alert("kk")
+                var currentrow = $(this).closest("tr");
+                Id = currentrow.find("td:eq(0)").text()toEnglishDigits();
+                $("#fn").val(currentrow.find("td:eq(0)").text());
+                $("#ln").val(currentrow.find("td:eq(1)").text());
+                $("#em").val(currentrow.find("td:eq(2)").text());
+                $("#pass1").val(currentrow.find("td:eq(3)").text());
+                $("#pass2").val(currentrow.find("td:eq(4)").text());
+                $("#role").val(currentrow.find("td:eq(5)").text());
+                $("#gender").val(currentrow.find("td:eq(6)").text());
+                $("#pic").val(currentrow.find("td:eq(7)").text());
+            });
             $("#btn1").click(function () {
                 $.ajax({
                     dataType: "json",
@@ -134,6 +227,4 @@
             });
         });
     </script>
-
-    <!-- END PAGE LEVEL JS-->
 }

@@ -15,6 +15,22 @@ namespace DataAccessLayer
             return db.Human.ToList();
 
         }
+        public void Update(Human humans)
+        {
+            DB db = new DB();
+            var q = from i in db.Human where i.Id == humans.Id select i;
+            Human human =new Human();
+             human = q.Single();
+            human.Id = humans.Id;
+            human.Name = humans.Name;
+            human.Family = humans.Family;
+            human.Picture = humans.Picture;
+            human.Password = humans.Password;
+            human.Email = humans.Email;
+            human.gender = humans.gender;
+            human.role = humans.role;
+
+        }
         public List<Human> Search(List<string> tags)
         {
             List<Human> humanList = new List<Human>();
