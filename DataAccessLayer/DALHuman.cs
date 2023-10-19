@@ -19,8 +19,8 @@ namespace DataAccessLayer
         {
             DB db = new DB();
             var q = from i in db.Human where i.Id == humans.Id select i;
-            Human human =new Human();
-             human = q.Single();
+            Human human = new Human();
+            human = q.Single();
             human.Id = humans.Id;
             human.Name = humans.Name;
             human.Family = humans.Family;
@@ -29,7 +29,21 @@ namespace DataAccessLayer
             human.Email = humans.Email;
             human.gender = humans.gender;
             human.role = humans.role;
+            db.SaveChanges();
 
+        }
+        public int GetAllRecords()
+        {
+            DB db = new DB();
+            return db.Human.Count();
+        }
+
+        public List<Human> GetSkip(int skip)
+        {
+            int getTenOfRecords = skip * 10;
+            DB db = new DB();
+            var q = db.Human.Skip(getTenOfRecords).Take(10);
+            return q.ToList();
         }
         public List<Human> Search(List<string> tags)
         {
