@@ -1,3 +1,64 @@
 ﻿@{
-    Layout = "_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section pre{
+    <link rel="stylesheet" type="text/css" href="~/vendors/dropify/css/dropify.min.css" />
+}
+<div class="col s12 m6 l6">
+    <div id="basic-form" class="card card card-default scrollspy">
+        <div class="card-content">
+            <h4 class="card-title">فرم پایه</h4>
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="fn" name="Title">
+                        <label class="contact-input" for="fn">عنوان</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="fn" name="TotalTime">
+                        <label class="contact-input" for="fn">  ساعت</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="text" name="Descript">
+                        <label class="contact-input" for="email"> توضیحات دوره</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="text" name="Price">
+                        <label class="contact-input" for="email">قیمت</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col m12">
+                        <label> ویدیو مقدماتی</label>
+                        <input name="VideoIntro" type="file" id="input-file-now" class="dropify" data-default-file="">
+                    </div>
+                  
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                                ارسال
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Script{
+    <script src="~/js/scripts/advance-ui-modals.min.js"></script>
+    <script src="~/js/scripts/data-tables.min.js"></script>
+    <script src="~/vendors/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/data-tables/js/dataTables.select.min.js"></script>
+    <script src="~/vendors/dropify/js/dropify.min.js"></script>
+    <script src="~/js-rtl/scripts/form-file-uploads-rtl.min.js"></script>
 }

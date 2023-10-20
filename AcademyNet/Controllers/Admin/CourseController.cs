@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Business_Entity;
 using BusinessLogicLayer;
+using AcademyNet.Models;
 
 namespace AcademyNet.Controllers.Admin
 {
@@ -29,38 +30,36 @@ namespace AcademyNet.Controllers.Admin
 
             return View("ShowTeachersAccount", bLLCourse.GetSkip(0));
         }
-        [HttpPost]
-        public void Create(Course course)
-        {
-            BLLCourse bLLCourse= new BLLCourse();
 
-            Business_Entity.Course businessCourse= new Course();
-            businessCourse.ID = course.ID;
-            businessCourse.CourseDetailFiles = course.CourseDetailFiles;
-            businessCourse.TeacherCourses = course.TeacherCourses;
-            businessCourse.VideoIntro = course.VideoIntro;
-            businessCourse.Price =course.Price;
+        [HttpPost]
+        public void Create(Models.Course course)
+        {
+            BLLCourse bLLCourse = new BLLCourse();
+            Business_Entity.Course businessCourse = new Business_Entity.Course();
+            businessCourse.Price = course.Price;
             businessCourse.Descript = course.Descript;
-            businessCourse.Humans = course.Humans;
+            businessCourse.ID = course.ID;
             businessCourse.TotalTime = course.TotalTime;
-            businessCourse.Title=course.Title;
+            businessCourse.Title = course.Title;
+            UploadFile uploadFile = new UploadFile(webHostEnvironment);
+            businessCourse.VideoIntro = uploadFile.UploadVideo(course.VideoIntro);
+        
             bLLCourse.Create(businessCourse);
 
         }
-        public void Update(Course course)
+        public void Update(Models.Course course)
         {
             BLLCourse bLLCourse = new BLLCourse();
 
-            Business_Entity.Course businessCourse = new Course();
+            Business_Entity.Course businessCourse = new  Business_Entity.Course();
             businessCourse.ID = course.ID;
-            businessCourse.CourseDetailFiles = course.CourseDetailFiles;
-            businessCourse.TeacherCourses = course.TeacherCourses;
-            businessCourse.VideoIntro = course.VideoIntro;
             businessCourse.Price = course.Price;
             businessCourse.Descript = course.Descript;
-            businessCourse.Humans = course.Humans;
             businessCourse.TotalTime = course.TotalTime;
-            businessCourse.Title=course.Title;
+            businessCourse.Title = course.Title;
+            UploadFile uploadFile = new UploadFile(webHostEnvironment);
+            businessCourse.VideoIntro = uploadFile.UploadVideo(course.VideoIntro);
+
             bLLCourse.Update(businessCourse);
 
 
@@ -80,7 +79,7 @@ namespace AcademyNet.Controllers.Admin
 
             }
             BLLCourse bLLCourse = new BLLCourse();
-            List<Course> courses= bLLCourse.Search(split);
+            List<Business_Entity.Course> courses = bLLCourse.Search(split);
             return View("ShowTeachersAccount", courses);
         }
         public IActionResult GetSkip(int skip)
