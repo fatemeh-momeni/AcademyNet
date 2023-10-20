@@ -29,7 +29,12 @@ namespace BusinessLogicLayer
             return dALHuman.Search(tags);
 
         }
-        public int GetAllRecords()
+        public int GetCountOfAllRecords()
+        {
+            DALHuman dALHuman = new DALHuman();
+            return dALHuman.GetCountOfAllRecords();
+        }
+        public List<Human> GetAllRecords()
         {
             DALHuman dALHuman = new DALHuman();
             return dALHuman.GetAllRecords();

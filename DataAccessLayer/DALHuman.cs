@@ -32,10 +32,16 @@ namespace DataAccessLayer
             db.SaveChanges();
 
         }
-        public int GetAllRecords()
+        public int GetCountOfAllRecords()
         {
             DB db = new DB();
             return db.Human.Count();
+        }
+        public List<Human> GetAllRecords()
+        {
+            DB db = new DB();
+            var q = from i in db.Human select i;
+            return q.ToList();
         }
 
         public List<Human> GetSkip(int skip)

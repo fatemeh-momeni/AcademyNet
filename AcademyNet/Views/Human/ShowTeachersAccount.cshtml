@@ -101,7 +101,7 @@
                             <a class="paginate_button previous disabled" aria-controls="multi-select" data-dt-idx="0" tabindex="-1" id="multi-select_previous">قبلی</a><span>
                                 @{
                                     BusinessLogicLayer.BLLHuman bLLHuman = new BusinessLogicLayer.BLLHuman();
-                                    int find = bLLHuman.GetAllRecords();
+                                    int find = bLLHuman.GetCountOfAllRecords();
                                     int count;
                                     if (find % 10 == 0) count = find / 10;
                                     else count = (find / 10) + 1;
