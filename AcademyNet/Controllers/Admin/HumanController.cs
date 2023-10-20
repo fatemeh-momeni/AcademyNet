@@ -26,7 +26,7 @@ namespace AcademyNet.Controllers.Admin
         {
             BLLHuman bLLHuman = new BLLHuman();
 
-            return View("ShowTeachersAccount",bLLHuman.Read());
+            return View("ShowTeachersAccount",bLLHuman.GetSkip(0));
         }
         [HttpPost]
         public void Create(Models.Human human)
@@ -53,6 +53,7 @@ namespace AcademyNet.Controllers.Admin
             BLLHuman bLLHuman = new BLLHuman();
 
             Business_Entity.Human businessHuman = new Human();
+            businessHuman.Id = human.Id;
             businessHuman.Name = human.Name;
             businessHuman.Family = human.Family;
             businessHuman.Email = human.Email;
@@ -84,8 +85,11 @@ namespace AcademyNet.Controllers.Admin
             BLLHuman bLLHuman= new BLLHuman();
             List<Human> humans = bLLHuman.Search(split);
             return View("ShowTeachersAccount", humans);
-            //Redirect();
-
+        }
+        public IActionResult GetSkip(int skip)
+        {
+            BLLHuman bLLHuman = new BLLHuman();
+            return View("ShowTeachersAccount", bLLHuman.GetSkip(skip));
 
         }
     }

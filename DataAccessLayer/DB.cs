@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace DataAccessLayer
 {
-    public class DB:DbContext
+    public class DB : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -17,6 +17,9 @@ namespace DataAccessLayer
             optionsBuilder.UseSqlServer("Data Source=LAPTOP-K2MKENH3;Initial Catalog=AcademyNet;Integrated Security=true ; User ID=sa; Password=123;Encrypt=False");
             base.OnConfiguring(optionsBuilder);
         }
-       public DbSet<Human> Human { get; set; } 
+        public DbSet<Human> Human { get; set; }
+        public DbSet<Course> Course { get; set; }
+        public DbSet<TeacherCourse> TeacherCourses { get; set; }
+        public DbSet<CourseDetailFile> CoursesDetailFile { get; set; }
     }
 }
