@@ -18,5 +18,14 @@
             file.CopyTo(f);
             return file.FileName;
         }
+        public string UploadVideo(IFormFile file)
+        {
+            if (file == null) return "";
+            var path = _webHostEnvironment.WebRootPath + "\\videos\\Course\\" + file.FileName;
+            using var f = System.IO.File.Create(path);
+            file.CopyTo(f);
+            path = path.Split("wwwroot")[1];
+            return file.FileName;
+        }
     }
 }

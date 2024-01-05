@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model List<Business_Entity.Course>
+<div class="row">
+    <form asp-action="Search" asp-controller="Course" method="get">
+
+
+        <div class="input-field col s6">
+            <i class="material-icons prefix">search</i>
+            <input name="search" id="icon_prefix3" type="text" class="validate">
+            <label class="contact-input" for="icon_prefix3">جستجو</label>
+        </div>
+        <button class="waves-effect waves-light btn mb-1">
+            <i class="material-icons right">gps_fixed</i> جستجو
+        </button>
+    </form>
+</div>
+
+<div id="view-borderless-table">
+    <div class="row">
+        <div class="col s12">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-field="id">عنوان</th>
+                        <th data-field="name">زمان </th>
+                        <th data-field="price">قیمت</th>
+                        <th data-field="edit">ویرایش</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Business_Entity.Course course in ViewBag.courses)
+                    {
+                        <tr>
+                            <td>@course.Title</td>
+                            <td>@course.TotalTime</td>
+                            <td>@course.Price</td>
+                            <td>
+                                <a asp-action="edit" asp-controller="Course" asp-route-id="@course.ID" class="waves-effect waves-light btn mb-1">
+                                    ویرایش
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
