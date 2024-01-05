@@ -1,4 +1,5 @@
 ﻿using Business_Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,14 @@ namespace DataAccessLayer
             return q.ToList();
         }
 
+        public List<Course> GetAllRecordsByTeachers()
+        {
+            DB db = new DB();
+            var q = from i in db.Course.Include(s=>s.TeacherCourses).ThenInclude(s=>s.Teacher)  select i;
+            return q.ToList();
+        }
+
+
         public List<Course> GetSkip(int skip)
         {
             int getTenOfRecords = skip * 10;
@@ -58,19 +67,22 @@ namespace DataAccessLayer
             var q = db.Course.Skip(getTenOfRecords).Take(10);
             return q.ToList();
         }
-        public List<Course> Search(List<string> tags)
+        public List<Course> Search(string search)
         {
-            List<Course> courses = new List<Course>();
-            foreach (string item in tags)
-            {
-                DB db = new DB();
-                var query = from i in db.Course
-                            where (i.Price == Convert.ToInt32(item) || i.Title.Contains(item.ToString()))
-                            select i;
-                courses = courses.Concat(query.ToList()).ToList();
-
-            }
-            return courses;
+            int n = 0;
+            DB db = new DB();
+            var query = from i in db.Course
+                        where i.Title.Contains(search.ToString())    
+                        select i;
+            return query.ToList();
+        }
+        public Course SearchById(int id)
+        {
+            DB db = new DB();
+            var query = from i in db.Course.Include(s => s.TeacherCourses).ThenInclude(t=>t.Teacher)
+                        where i.ID == id    
+                        select i;
+            return query.SingleOrDefault();
         }
     }
 }

@@ -9,7 +9,9 @@ namespace AcademyNet.Models
         public float TotalTime { get; set; }
         public string Descript { get; set; }
         public IFormFile VideoIntro { get; set; }
+        public string VideoUrl { get; set; }
         public float Price { get; set; }
-       
+        public List<int> teachers { get; set; }
+        
     }
 }

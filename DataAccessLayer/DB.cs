@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Business_Entity;
 using System.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
-    public class DB : DbContext
+    //یوزری که می سازد دارای فرست نیم و لست نیم می باشد
+    public class DB : IdentityDbContext<UserApp>//DbContext
     {
+        public DB() : base() { }
+        public DB(DbContextOptions<DB> options) : base(options) 
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.useSqlite("Data Source=blogging.db");

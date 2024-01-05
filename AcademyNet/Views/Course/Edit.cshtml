@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Course
+@{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 @section pre{
@@ -8,7 +9,7 @@
     <div id="basic-form" class="card card card-default scrollspy">
         <div class="card-content">
             <h4 class="card-title">فرم پایه</h4>
-            <form asp-action="Create" enctype="multipart/form-data">
+            <form asp-action="Edit" asp-controller="Course" method="post" enctype="multipart/form-data">
 
                 <div id="modal1" class="modal">
                     <div class="modal-content mb-5">
@@ -17,12 +18,21 @@
                         </div>
                         <div id="modal-body2">
                             <div class="row">
-                                @foreach (Business_Entity.Human teacher in ViewBag.BLLHuman)
+                                @foreach (Business_Entity.Human teacher in ViewBag.teachers)
                                 {
+                                    var isChecked = Model.teachers.Any(t => t == teacher.Id);
                                     <div class="col s4">
                                         <label>
-                                            <input type="checkbox" name="humans" class="form-control tch" value="@teacher.Id" />
-                                            <span class="black-text">@teacher.Name @teacher.Family</span>
+                                            @if (isChecked)
+                                            {
+                                                <input checked type="checkbox" name="humans" class="form-control tch" value="@teacher.Id" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="humans" class="form-control tch" value="@teacher.Id"/>
+                                            }
+                                            
+                                        <span class="black-text">@teacher.Name @teacher.Family</span>
                                         </label>
                                     </div>
                                 }
@@ -35,26 +45,34 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" id="fn" name="Title">
+                        <input asp-for="Title" type="text" id="fn" name="Title">
                         <label class="contact-input" for="fn">عنوان</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" id="fn" name="TotalTime">
+                        <input asp-for="TotalTime" type="text" id="fn" name="TotalTime">
                         <label class="contact-input" for="fn">  ساعت</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email" type="text" name="Descript">
+                        <input asp-for="Descript" type="text" name="Descript">
                         <label class="contact-input" for="email"> توضیحات دوره</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email" type="text" name="Price">
+                        <input asp-for="Price" type="number" name="Price">
                         <label class="contact-input" for="email">قیمت</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m12">
+                        <label> پیش نمایش</label>
+                        <video controls ="controls">
+                            <sorce src="@Model.VideoUrl" type="video/mp4"/>
+                        </video>
                     </div>
                 </div>
 

@@ -26,10 +26,16 @@ namespace BusinessLogicLayer
             return dALCourse.Read();
 
         }
-        public List<Course> Search(List<string> tags)
+        public List<Course> Search(string search)
         {
             DALCourse dALCourse = new DALCourse();
-            return dALCourse.Search(tags);
+            return dALCourse.Search(search);
+
+        }
+        public Course SearchById(int search)
+        {
+            DALCourse dALCourse = new DALCourse();
+            return dALCourse.SearchById(search);
 
         }
         public int GetCountOfAllRecords()
@@ -37,6 +43,17 @@ namespace BusinessLogicLayer
             DALCourse dALCourse = new DALCourse();
             return dALCourse.GetCountOfAllRecords();
         }
+        public List<Course> GetAllRecords()
+        {
+            DALCourse dALCourse = new DALCourse();
+            return dALCourse.GetAllRecords();
+        }
+        public List<Course> GetAllRecordsByTeachers()
+        {
+            DALCourse dALCourse = new DALCourse();
+            return dALCourse.GetAllRecordsByTeachers();
+        }
+
         public List<Course> GetSkip(int skip)
         {
             DALCourse dALCourse = new DALCourse();

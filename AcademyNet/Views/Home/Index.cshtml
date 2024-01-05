@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    //Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
+<br/>
+@await Component.InvokeAsync("CourseList");
