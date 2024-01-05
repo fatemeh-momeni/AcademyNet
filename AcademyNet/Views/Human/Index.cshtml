@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col s12 m6 l6">
+    <div id="basic-form" class="card card card-default scrollspy">
+        <div class="card-content">
+            <h4 class="card-title">فرم پایه</h4>
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="fn" name="Name">
+                        <label class="contact-input" for="fn">نام</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="fn" name="Family">
+                        <label class="contact-input" for="fn"> نام خانوادگی</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="email" name="Email">
+                        <label class="contact-input" for="email">ایمیل</label>
+                    </div>
+                </div>
+              
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label class="contact-input" for="email">عکس</label>
+                        <input id="email" type="file" name="Picture">
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                                ارسال
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

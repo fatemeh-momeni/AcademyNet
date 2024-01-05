@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -50,18 +48,12 @@
             <div class="card-content">
                 <h4 class="card-title">لیست اساتید</h4>
                 <div class="chips chips-placeholder input-field"><input class="input" id="9474de9d-c5a1-aa61-66cd-dee182b74757" placeholder="+Tag"></div>
-                <div class="row">
-                    <div class="col s12">
-                        <a id="btn1" class="waves-effect waves-light btn-small mb-1 mr-1">جستجو</a>
-                    </div>
-                </div>
-                <!-- Modal Structure -->
 
-                <br />
+                <a id="btnSearch" class="waves-effect waves-light btn-small mb-1 mr-1">جستجو</a>
+
                 <div class="row">
                     <div class="col s12">
                     </div>
-
                     <div class="col s12">
                         <table id="data-table-simple" class="display">
                             <thead>
@@ -70,7 +62,8 @@
                                     <th>نام خانوادگی</th>
                                     <th>ایمیل</th>
                                     <th>تصویر</th>
-                                    <th>ویرایش      </th>
+                                    <th>ویرایش</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,12 +71,13 @@
                                     foreach (var i in Model)
                                     {
                                         <tr>
-                                            <td style="display : none">@i.Id</td>
+                                            <td style="display : none">@i.Id </td>
                                             <td>@i.Name</td>
                                             <td>@i.Family</td>
                                             <td>@i.Email</td>
                                             <td><img src="~/images/Human/@i.Picture" style="width:50px; height:50px;"></td>
                                             <td><a class="mb-6 btn-floating waves-effect waves-light purple lightrn-1 modal-trigger btnEdit" href="#modal1"><i class="material-icons">edit</i> </a></td>
+
                                         </tr>
                                     }
                                 }
@@ -96,17 +90,33 @@
                                     <th>نام خانوادگی</th>
                                     <th>ایمیل</th>
                                     <th> تصویر</th>
+                                    <th>ویرایش</th>
 
                                 </tr>
                             </tfoot>
                         </table>
+                        <div class="dataTables_paginate paging_simple_number" id="multi_select_paginate">
+                            <a class="paginate_button previous disabled" aria-controls="multi-select" data-dt-idx="0" tabindex="-1" id="multi-select_previous">قبلی</a><span>
+                                @{
+                                    BusinessLogicLayer.BLLHuman bLLHuman = new BusinessLogicLayer.BLLHuman();
+                                    int find = bLLHuman.GetCountOfAllRecords();
+                                    int count;
+                                    if (find % 10 == 0) count = find / 10;
+                                    else count = (find / 10) + 1;
+                                    for(var i = 0; i < count; i++)
+                                    {
+                                        <a class="paginate_button" aria-controls="multi-select" data-dt-idx=@i tabindex="0" href=@Url.Action("GetSkip","Human",new {skip=i})>@i</a>
+                                    }
+                                }
+                            </span><a class="paginate_button next" aria-controls="multi-select" data-dt-idx="7" tabindex="0" id="multi-select_next">بعدی</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<!-- ایجاد مدال برای ویرایش و آپدیت-->
 <div id="modal1" class="modal" style="display: none">
     <div class="modal-content">
         <h4>ویرایش</h4>
@@ -130,7 +140,7 @@
                         <input class="validate" required id="pass1" type="Password" name="Password">
                     </div>
                     <div class="input-field col s12">
-                        <label for="cpassword0">رمز عبور را تأیید کنید *</label>
+                        <label for="cpassword0"></label>
                         <input class="validate" required id="pass2" type="Password" name="Password">
                     </div>
 
@@ -167,7 +177,7 @@
                             <input id="pic" type="file" name="Picture" />
                         </div>
                         <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light right iransans" type="submit" name="action">
+                            <button class="btn waves-effect waves-light right iransans modal-action modal-close" type="submit" name="action">
                                 ارسال
                                 <i class="material-icons right">send</i>
                             </button>
@@ -176,10 +186,9 @@
             </form>
         </div>
     </div>
-    <div class="modal-footer">
-    </div>
-</div>
 
+
+</div>
 
 
 @section script{
@@ -196,26 +205,10 @@
 
     <script src="~/js/scripts/ui-chips.min.js"></script>
     <!--EndSearch-->
-    <!-- END PAGE LEVEL JS-->
-    <script src="~/js/scripts/advance-ui-modals.min.js"></script>
-
-
+        <<!--فانکشن دکمه سرچ-->
     <script>
-                $(document).ready(function () {
-            $(".btnEdit").click(function () {
-                //alert("kk")
-                var currentrow = $(this).closest("tr");
-                Id = currentrow.find("td:eq(0)").text()toEnglishDigits();
-                $("#fn").val(currentrow.find("td:eq(0)").text());
-                $("#ln").val(currentrow.find("td:eq(1)").text());
-                $("#em").val(currentrow.find("td:eq(2)").text());
-                $("#pass1").val(currentrow.find("td:eq(3)").text());
-                $("#pass2").val(currentrow.find("td:eq(4)").text());
-                $("#role").val(currentrow.find("td:eq(5)").text());
-                $("#gender").val(currentrow.find("td:eq(6)").text());
-                $("#pic").val(currentrow.find("td:eq(7)").text());
-            });
-            $("#btn1").click(function () {
+        $(document).ready(function () {
+            $("#btnSearch").click(function () {
                 $.ajax({
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
@@ -227,4 +220,76 @@
             });
         });
     </script>
+    <!--پایان فانکشن دکمه سرچ-->
+    <!--فانکشن دکمه ویرایش-->
+    <script>
+        $(document).ready(function myFunction() {
+            var id;
+            var currentrow;
+
+            String.prototype.toEnglishDigits = function () {
+                var num_dic = {
+                    '۰': '0',
+                    '۱': '1',
+                    '۲': '2',
+                    '۳': '3',
+                    '۴': '4',
+                    '۵': '5',
+                    '۶': '6',
+                    '۷': '7',
+                    '۸': '8',
+                    '۹': '9',
+                }
+                return this.replace(/[۰-۹]/g, function (number) {
+                    return num_dic[number];
+                });
+            };
+
+
+            $("form#edit").submit(function (edit) {
+                edit.preventDefault();
+                var formData = new FormData(this);
+                formData.append("id", id);
+                $.ajax({
+                    type: "post",
+                    enctype: "multipart/form-data",
+                    url: "@Url.Action("Update","Human")",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    complete: function (data) {
+                        currentrow.find("td:eq(1)").text($("#fn").val());
+                        currentrow.find("td:eq(2)").text($("#ln").val());
+                        currentrow.find("td:eq(3)").text($("#em").val());
+                        var fileName = $('#pic').val().split('\\').pop();
+                        currentrow.find('img').attr('src', "/images/Human/" + fileName);
+
+                    }
+                });
+            });
+            $(".btnEdit").click(function () {
+                currentrow = $(this).closest("tr");
+                id = currentrow.find("td:eq(0)").text().toEnglishDigits();
+                $("#fn").val(currentrow.find("td:eq(1)").text());
+                $("#ln").val(currentrow.find("td:eq(2)").text());
+                $("#em").val(currentrow.find("td:eq(3)").text());
+                $("#pass1").val(currentrow.find("td:eq(4)").text());
+                $("#pass2").val(currentrow.find("td:eq(5)").text());
+                $("#role").val(currentrow.find("td:eq(6)").text());
+                $("#gender").val(currentrow.find("td:eq(7)").text());
+                $("#pic").val(currentrow.find("td:eq(8)").text());
+            });
+
+        });
+    </script>
+    <!--پایان فانکشن  دکمه ویرایش-->
+    <!---->
+    <script>
+        $(document).ready(function myFunction() {
+
+    </script>
+    <!---->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <script src="~/js/scripts/advance-ui-modals.min.js"></script>
+    <!-- END PAGE LEVEL JS-->
 }
