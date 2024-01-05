@@ -1,5 +1,6 @@
 ﻿using AcademyNet.Models;
 using Business_Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -39,8 +40,8 @@ namespace AcademyNet.Controllers
                 return View(register);
             }
 
-            return View();
-        }
+            return RedirectToAction("Index", "Home");
+        } 
         //فقط ویو را نمایش می دهد
         public async Task<IActionResult> Register()
         {
@@ -71,6 +72,13 @@ namespace AcademyNet.Controllers
             };
             var addResult = await _userManager.CreateAsync(userApp, register.Password);
             return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Index()
         {
