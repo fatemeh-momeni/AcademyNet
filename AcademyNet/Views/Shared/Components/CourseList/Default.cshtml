@@ -1,0 +1,48 @@
+﻿@model List<Business_Entity.Course>
+
+@{
+
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 d-flex justify-content-between">
+            <h6 class="title pb-2">جدیدترین دوره های آموزشی</h6>
+        </div>
+    </div>
+</div>
+
+<!----- Start course boxes ----->
+<div class="container my-3">
+    <div class="row">
+
+        @foreach (var course in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card custom-card mb-3">
+                    <div class="sub-layer">
+                        <img src="~/images/bootstrap.jpg" alt="bootstrap" class="img-fluid card-img-top">
+                        <div class="over-layer">
+                            <a href="@Url.Action("Details", "Course")?courseID=@course.ID" class="btn btn-primary">مشاهده و خرید</a>
+                            <span class="badge badge-secondary badge-pill"> 50 <i class="fa fa-shopping-basket pr-1"></i></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="course.html" class="card-link">@course.Title</a>
+                        <p class="text-justify card-text vazir font-14 mt-3">
+                          @course.Descript
+                    </div>
+                    <div class="card-footer">
+                      
+                        <div class="float-left">
+                            <small class="text-success mr-2">@course.Price تومان</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+       
+
+
+    </div>
+</div>
+<!----- End course boxes ----->

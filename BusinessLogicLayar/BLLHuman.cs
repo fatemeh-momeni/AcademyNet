@@ -7,10 +7,10 @@ namespace BusinessLogicLayer
 {
     public class BLLHuman
     {
-        public void Create (Human human)
+        public void Create(Human human)
         {
             DALHuman dALHuman = new DALHuman();
-            dALHuman.Create (human);
+            dALHuman.Create(human);
         }
         public void Update(Human human)
         {
@@ -29,5 +29,21 @@ namespace BusinessLogicLayer
             return dALHuman.Search(tags);
 
         }
+        public int GetCountOfAllRecords()
+        {
+            DALHuman dALHuman = new DALHuman();
+            return dALHuman.GetCountOfAllRecords();
+        }
+        public List<Human> GetAllRecords()
+        {
+            DALHuman dALHuman = new DALHuman();
+            return dALHuman.GetAllRecords();
+        }
+        public List<Human> GetSkip(int skip)
+        {
+            DALHuman dALHuman = new DALHuman();
+            return dALHuman.GetSkip(skip);
+        }
+
     }
 }
