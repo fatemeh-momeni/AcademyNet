@@ -22,7 +22,7 @@
                     <div class="sub-layer">
                         <img src="~/images/bootstrap.jpg" alt="bootstrap" class="img-fluid card-img-top">
                         <div class="over-layer">
-                            <a asp-action="Details" asp-controller="Course" asp-route-id="@course.ID" class="btn btn-primary"> مشاهده و خرید </a>
+                            <a href="@Url.Action("Details", "Course")?courseID=@course.ID" class="btn btn-primary">مشاهده و خرید</a>
                             <span class="badge badge-secondary badge-pill"> 50 <i class="fa fa-shopping-basket pr-1"></i></span>
                         </div>
                     </div>

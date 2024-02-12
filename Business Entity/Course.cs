@@ -17,6 +17,7 @@ namespace Business_Entity
         public float Price { get; set; }
         public List<CourseDetailFile> CourseDetailFiles { get; set; } = new List<CourseDetailFile>();
         public List<TeacherCourse> TeacherCourses { get; set; } = new List<TeacherCourse>();
+        public List<OrderCourse> OrderCourses { get; set; }  
 
     }
 

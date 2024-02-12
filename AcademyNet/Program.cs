@@ -1,3 +1,4 @@
+using AcademyNet;
 using Business_Entity;
 using DataAccessLayer;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//?? ?? ??????? ??? ?? ??????? ???? ?? ???  
 builder.Services.AddDbContext<DB>(s => s.UseSqlServer("CON1"));
+builder.Services.AddScoped<UploadFile>();
 builder.Services.AddIdentity<UserApp, IdentityRole>(option =>
 {
     option.Password.RequireDigit = false;
@@ -33,6 +36,11 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/Login";
     options.SlidingExpiration = true;
 });
+//??????? ??? ??
+builder.Services.AddSession(option =>
+{
+    option.IdleTimeout = TimeSpan.FromMinutes(20);
+});
 
 
 var app = builder.Build();
@@ -52,6 +60,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.UseAuthentication();
+//??????? ?? ???? ??? ??
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

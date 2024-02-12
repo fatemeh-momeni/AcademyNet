@@ -59,5 +59,11 @@ namespace BusinessLogicLayer
             DALCourse dALCourse = new DALCourse();
             return dALCourse.GetSkip(skip);
         }
+        public List<Course> SearchById(List<int> ids)
+        {
+            DALCourse dALCourse = new DALCourse();
+            return dALCourse.SearchById(ids);
+
+        }
     }
 }

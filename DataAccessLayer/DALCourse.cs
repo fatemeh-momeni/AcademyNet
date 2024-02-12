@@ -55,7 +55,7 @@ namespace DataAccessLayer
         public List<Course> GetAllRecordsByTeachers()
         {
             DB db = new DB();
-            var q = from i in db.Course.Include(s=>s.TeacherCourses).ThenInclude(s=>s.Teacher)  select i;
+            var q = from i in db.Course.Include(s => s.TeacherCourses).ThenInclude(s => s.Teacher) select i;
             return q.ToList();
         }
 
@@ -72,15 +72,24 @@ namespace DataAccessLayer
             int n = 0;
             DB db = new DB();
             var query = from i in db.Course
-                        where i.Title.Contains(search.ToString())    
+                        where i.Title.Contains(search.ToString())
                         select i;
             return query.ToList();
+        }
+        public List<Course> SearchById(List<int> ids)
+        {
+            DB db = new DB();
+            var query = from i in db.Course
+                        where ids.Contains(i.ID)
+                        select i;
+            return query.ToList();
+
         }
         public Course SearchById(int id)
         {
             DB db = new DB();
-            var query = from i in db.Course.Include(s => s.TeacherCourses).ThenInclude(t=>t.Teacher)
-                        where i.ID == id    
+            var query = from i in db.Course.Include(s => s.TeacherCourses).ThenInclude(t => t.Teacher)
+                        where i.ID == id
                         select i;
             return query.SingleOrDefault();
         }

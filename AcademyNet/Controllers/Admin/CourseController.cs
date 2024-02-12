@@ -1,10 +1,5 @@
 ﻿using BusinessLogicLayer;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using Business_Entity;
-using BusinessLogicLayer;
-using AcademyNet.Models;
 using Course = Business_Entity.Course;
 
 namespace AcademyNet.Controllers.Admin
@@ -66,7 +61,7 @@ namespace AcademyNet.Controllers.Admin
             bECourse.Price = course.Price;
             bECourse.Descript = course.Descript;
             bECourse.TotalTime = course.TotalTime;
-    
+
             if (course.VideoIntro != null)
             {
                 UploadFile uploadFile = new UploadFile(webHostEnvironment);
@@ -82,11 +77,11 @@ namespace AcademyNet.Controllers.Admin
             return View("Create");
         }
         //جزئیات دوره
-        public IActionResult Details(int id)
+        public IActionResult Details(int courseID)
         {
             BLLCourse bLLCourse = new BLLCourse();
             Course course = new Course();
-            course = bLLCourse.SearchById(id);
+            course = bLLCourse.SearchById(courseID);
 
             return View(course);
         }
@@ -147,5 +142,6 @@ namespace AcademyNet.Controllers.Admin
             return View("ShowTeachersAccount", bLLCourse.GetSkip(skip));
 
         }
+
     }
 }

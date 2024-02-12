@@ -1,5 +1,9 @@
 ﻿@using Business_Entity;
 @using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@using BusinessLogicLayer;
+@inject IHttpContextAccessor httpContextAccessor
 @inject UserManager<UserApp> userManager
 
 
@@ -14,12 +18,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قالب آموزش آنلاین ایزی لرن</title>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/carousel/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/bootstrap/bootstrap-rtl.css">
-    <link rel="stylesheet" href="css/customcss/style.css">
-    <link rel="stylesheet" href="css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap-rtl.css">
+    <link rel="stylesheet" href="~/css/customcss/style.css">
+    <link rel="stylesheet" href="~/css/fontawesome/css/all.css">
 </head>
 <body>
     <!----- Start header ----->
@@ -28,7 +32,7 @@
             <div class="row pb-3">
 
                 <div class="d-none d-lg-block col-lg-2">
-                    <img src="images/logo.jpg" alt="EasyLearn" title="EasyLearn" class="img-fluid">
+                    <img src="~/images/" alt="EasyLearn" title="EasyLearn" class="img-fluid">
                 </div>
 
                 <div class="d-none d-lg-flex col-lg-6 align-items-center search-box">
@@ -41,37 +45,48 @@
                         </div>
                     </form>
                 </div>
+                <a href="#" class="border-left ml-3 dropdown" data-toggle="dropdown">
+                    @{
+                        var courseIDs = new List<int>();
+                        if(httpContextAccessor.HttpContext.Session.GetString("basket") != null)
+                        {
+                            courseIDs = JsonConvert.DeserializeObject<List<int>>(httpContextAccessor.HttpContext.Session.GetString("basket"));
+                        }
+                        var bllCourse = new BLLCourse();
+                        var courses = bllCourse.SearchById(courseIDs);
+                    }
+                    @if(courses.Count > 0)
+                    {
+                        <span class="badge badge-info badge-pill">@courses.Count</span><i class="fa fa-shopping-basket ml-3"></i>
+                    }
+                    <div class="dropdown-menu  dropdown-cart mt-3 mx-5">
+                        <ul class="list-unstyled">
+                            @foreach (var course in courses)
+                            {
+                                <li>
+                                    <img width="50" height="50" src="~/images/bootstrap.jpg" class="m-1 ml-3">
+                                    <div class="float-right">
+                                        <small class=" mt-3 mr-2 d-block">@course.Title  (@course.Price تومان)</small>
+                                    </div>
+                                </li>
+                            }
+                          
+                            <li>
+                                <a asp-action="Index" asp-controller="Profile" asp-route-showBasket="active" button class="btn btn-info m-1 ml-3 font-12">پرداخت</button></a>
+                                <div class="float-right">
+                                    <small class=" mt-3 mr-2 d-block">قیمت کل : @courses.Sum(s=>s.Price)</small>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </a>
 
                 <div class="d-none d-lg-flex col-lg-4 align-items-center justify-content-end">
-                    @* <a href="#" class="cart mt-2 ml-2 dropdown" data-toggle="dropdown">
-                    <span class="badge badge-info badge-pill">2</span><i class="fa fa-shopping-basket"></i>
-                    <div class="dropdown-menu dropdown-cart mt-3">
-                    <ul class="list-unstyled">
-                    <li>
-                    <img src="images/bootstrap.jpg" class="m-1 ml-3">
-                    <div class="float-right">
-                    <small class=" mt-3 mr-2 d-block">آموزش جامع Bootstrap 4 (64.000 تومان)</small>
-                    </div>
-                    </li>
-                    <li>
-                    <img src="images/php-security-2.png" class="m-1 ml-3">
-                    <div class="float-right">
-                    <small class=" mt-3 mr-2 d-block">آموزش امنیت در PHP (64.000 تومان)</small>
-                    </div>
-                    </li>
-                    <li>
-                    <button class="btn btn-info m-1 ml-3 font-12">پرداخت</button>
-                    <div class="float-right">
-                    <small class=" mt-3 mr-2 d-block">قیمت کل : 128.000 تومان</small>
-                    </div>
-                    </li>
-                    </ul>
-                    </div>
-                    </a>*@
+
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        var user = await userManager.FindByNameAsync(User.Identity.Name); 
+                        var user = await userManager.FindByNameAsync(User.Identity.Name);
                         <div>@user.FirstName @user.LastName</div>
                         <a asp-action="Logout" asp-controller="Account" class="btn btn-outline-info font-13 vazir-med-fa"><i class="fa fa-user-plus pl-1"></i>خروج</a>
                     }
@@ -80,8 +95,8 @@
                         <a asp-action="Register" asp-controller="Account" class="btn btn-outline-info font-13 vazir-med-fa"><i class="fa fa-user-plus pl-1"></i>ثبت نام</a>
                         <a asp-action="Login" asp-controller="Account" class="btn btn-info font-13 vazir-med-fa mx-2">ورود</a>
                     }
-                   
-                 
+
+
                 </div>
 
             </div>
@@ -90,7 +105,7 @@
                 <!----- Start mobile header ----->
 
                 <div class="col-12 d-flex d-lg-none justify-content-center">
-                    <img src="images/logo.jpg" alt="Easylearn" alt="Easylearn">
+                    <img src="~/images/logo.jpg" alt="Easylearn" alt="Easylearn">
                 </div>
 
                 <div class="col-12 d-flex d-lg-none justify-content-center mb-4 mobile-header">
@@ -99,28 +114,7 @@
                     <a href="teach.html" class="border-left ml-3"><i class="fa fa-graduation-cap ml-3"></i></a>
                     <a href="#" class="border-left ml-3 dropdown" data-toggle="dropdown">
                         <span class="badge badge-info badge-pill">2</span><i class="fa fa-shopping-basket ml-3"></i>
-                        <div class="dropdown-menu  dropdown-cart mt-3 mx-5">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <img src="images/bootstrap.jpg" class="m-1 ml-3">
-                                    <div class="float-right">
-                                        <small class=" mt-3 mr-2 d-block">آموزش جامع Bootstrap 4 (64.000 تومان)</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="images/php-security-2.png" class="m-1 ml-3">
-                                    <div class="float-right">
-                                        <small class=" mt-3 mr-2 d-block">آموزش امنیت در PHP (64.000 تومان)</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <button class="btn btn-info m-1 ml-3 font-12">پرداخت</button>
-                                    <div class="float-right">
-                                        <small class=" mt-3 mr-2 d-block">قیمت کل : 128.000 تومان</small>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+
                     </a>
                     <a href="#search" data-toggle="collapse"><i class="fa fa-search"></i></a>
                 </div>
@@ -152,7 +146,7 @@
             <div class="row">
 
                 <div class="col-md-4">
-                    <img src="images/logo4.jpg" alt="" class="img-fluid">
+                    <img src="~/images/logo4.jpg" alt="" class="img-fluid">
                     <p class="text-justify font-14 vazir mb-4">
                         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
                         استفاده از طراحان گرافیک است.
@@ -218,11 +212,11 @@
 
         </div>
     </footer><!----- End footer ----->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/myscript.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/myscript.js"></script>
     @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>

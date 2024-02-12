@@ -1,25 +1,23 @@
 ﻿@model Business_Entity.Course
-@{
 
-}
 <div class="container">
     <div class="row">
 
         <div class="col-md-4 mb-3">
-            <img src="images/html-2.png" class="img-fluid" alt="HTML">
+            <img src="~/images/html-2.png" class="img-fluid" alt="HTML">
             <ul class="list-group text-center list-group-flush custom-list-group">
                 <li class="list-group-item font-13">عنوان دوره : @Model.Title</li>
                 <li class="list-group-item font-13">
-                    اساتید : 
-                    @foreach(var teacher in Model.TeacherCourses)
-                    {
-                     <div>@teacher.Teacher.Name @teacher.Teacher.Family</div>   
-                    }
-                </li>          
+                    اساتید :
+                        @foreach (var teacher in Model.TeacherCourses)
+                        {
+                        <div>@teacher.Teacher.Name @teacher.Teacher.Family</div>
+                        }
+                </li>
                 <li class="list-group-item font-13">زمان دوره : @Model.TotalTime</li>
                 <li class="list-group-item font-13">@Model.Price</li>
             </ul>
-            <button class="btn btn-info btn-block mt-3 py-2 font-12"><i class="fa fa-cart-plus align-middle"></i> افزودن به سبد خرید</button>
+            <a href="@Url.Action("AddToBasket", "Order")?courseID=@Model.ID" class="btn btn-info btn-block mt-3 py-2 font-12"><i class="fa fa-cart-plus align-middle"></i> افزودن به سبد خرید</a>
         </div>
 
         <div class="col-md-8">
@@ -138,7 +136,7 @@
                         <div class="tab-pane fade" id="teacher-info">
                             <!-- Start teacher info -->
 
-                            <img src="images/teacher.jpg" alt="" class="img-fluid d-block mx-auto">
+                            <img src="~/images/teacher.jpg" alt="" class="img-fluid d-block mx-auto">
 
                             <p class="text-justify mt-5 vazir font-14">
                                 اول داستان، طراح گرافیک بودم و ۲ سالی به عنوان طراح مشغول بودم،
