@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section pre{
+    <link rel="stylesheet" type="text/css" href="~/vendors/dropify/css/dropify.min.css" />
+}
+<div class="col s12 m6 l6">
+    <div id="basic-form" class="card card card-default scrollspy">
+        <div class="card-content">
+            <h4 class="card-title">فرم پایه</h4>
+            <form asp-action="Create" enctype="multipart/form-data">
+
+                <div id="modal1" class="modal">
+                    <div class="modal-content mb-5">
+                        <div class="modal-header">
+                            <h5 class="mt-0" id="modal-title">اساتید مورد نظر را انتخاب نمایید.</h5>
+                        </div>
+                        <div id="modal-body2">
+                            <div class="row">
+                                @foreach (Business_Entity.Human teacher in ViewBag.BLLHuman)
+                                {
+                                    <div class="col s4">
+                                        <label>
+                                            <input type="checkbox" name="humans" class="form-control tch" value="@teacher.Id" />
+                                            <span class="black-text">@teacher.Name @teacher.Family</span>
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <a class="btn blue waves-light mt - 2 right" id="btnSave"> انتخاب</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="fn" name="Title">
+                        <label class="contact-input" for="fn">عنوان</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="fn" name="TotalTime">
+                        <label class="contact-input" for="fn">  ساعت</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="text" name="Descript">
+                        <label class="contact-input" for="email"> توضیحات دوره</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="text" name="Price">
+                        <label class="contact-input" for="email">قیمت</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col m12">
+                        <label> ویدیو مقدماتی</label>
+                        <input name="VideoIntro" type="file" id="input-file-now" class="dropify" data-default-file="">
+                    </div>
+                </div>
+
+
+                <div class="col s12">
+                    <button class="btn btn-lg" id="selectTeachers">برای انتخاب اساتید کلیک کنید</button>
+                </div>
+
+                <input hidden id="teachers" name="teachers" />
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                            ارسال
+                            <i class="material-icons right">send</i>
+                        </button>
+
+
+                    </div>
+                </div>
+
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+@section Script{
+    <script src="~/js/scripts/advance-ui-modals.min.js"></script>
+    <script src="~/js/scripts/data-tables.min.js"></script>
+    <script src="~/vendors/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/data-tables/js/dataTables.select.min.js"></script>
+    <script src="~/vendors/dropify/js/dropify.min.js"></script>
+    <script src="~/js-rtl/scripts/form-file-uploads-rtl.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#selectTeachers").focus(function () {
+                $("#modal1").modal('open');
+            });
+        });
+        $("#btnSave").click(function () {
+            $("#modal1").modal('close');
+            var ids = [];
+            $(':checkbox : checked').each(function (i) {
+                ids[i] = $(this).val();
+                if (ids[i] == "on") {
+                    ids[i].remove();
+                }
+
+            });
+            // var human = $("#teachers").val();
+            ids.each(function (i) {
+                var teacher = $('#teachers').val();
+                teacher.push(ids[i]);
+            })
+        });
+    </script>
+}

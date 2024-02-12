@@ -1,0 +1,29 @@
+﻿
+
+<!--در دات نت کور هر صفحه را میتوانی به کامپوننت جدا تبدیل کنی.یعنی هر قسمتی که ام وی سی و ویو مختص خودش را دارد-->
+@model List<Business_Entity.Human>
+<div class="container d-none d-lg-block">
+    <div class="row mt-3 mb-5">
+    @foreach(var item in Model){
+    
+        <div class="col-md-3">
+            <div class="card teacher-card">
+                <img src="~/images/Human/@item.Picture" alt="teacher" class="img-fluid card-img-top">
+                <div class="card-body">
+                    <p class="card-text font-14 text-center">
+                        @item.Name @item.Family
+                    </p><p class="card-text font-12  text-info text-center">@item.Email</p>
+                </div>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <a href="#"><i class="fab fa-instagram ml-2 text-danger"></i></a>
+                        <a href="#"><i class="fab fa-telegram ml-2 text-primary"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp ml-2 text-success"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    }
+    </div>
+</div>

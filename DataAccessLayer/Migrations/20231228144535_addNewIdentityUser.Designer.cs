@@ -4,6 +4,7 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20231228144535_addNewIdentityUser")]
+    partial class addNewIdentityUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,50 +123,6 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("CourseID");
 
                     b.ToTable("Human");
-                });
-
-            modelBuilder.Entity("Business_Entity.Order", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<float>("TotalPrice")
-                        .HasColumnType("real");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("Business_Entity.OrderCourse", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("CourseID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CourseID");
-
-                    b.HasIndex("OrderID");
-
-                    b.ToTable("OrderCourse");
                 });
 
             modelBuilder.Entity("Business_Entity.TeacherCourse", b =>
@@ -409,34 +368,6 @@ namespace DataAccessLayer.Migrations
                         .HasForeignKey("CourseID");
                 });
 
-            modelBuilder.Entity("Business_Entity.Order", b =>
-                {
-                    b.HasOne("Business_Entity.UserApp", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Business_Entity.OrderCourse", b =>
-                {
-                    b.HasOne("Business_Entity.Course", "Course")
-                        .WithMany("OrderCourses")
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Business_Entity.Order", "Order")
-                        .WithMany("OrderCourses")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Business_Entity.TeacherCourse", b =>
                 {
                     b.HasOne("Business_Entity.Course", "Course")
@@ -513,19 +444,12 @@ namespace DataAccessLayer.Migrations
 
                     b.Navigation("Humans");
 
-                    b.Navigation("OrderCourses");
-
                     b.Navigation("TeacherCourses");
                 });
 
             modelBuilder.Entity("Business_Entity.Human", b =>
                 {
                     b.Navigation("TeacherCourses");
-                });
-
-            modelBuilder.Entity("Business_Entity.Order", b =>
-                {
-                    b.Navigation("OrderCourses");
                 });
 #pragma warning restore 612, 618
         }
