@@ -85,6 +85,13 @@ namespace AcademyNet.Controllers.Admin
 
             return View(course);
         }
+        //کل دوره برای انتخاب
+        public IActionResult ShowCoursesBuyers(int courseID)
+        {
+            BusinessLogicLayer.BLLCourse bLLCourse = new BusinessLogicLayer.BLLCourse();
+            var courses = bLLCourse.GetAllRecordsByTeachers();
+            return View(courses);
+        }
         public IActionResult ShowAllCourse()
         {
             BLLCourse bLLCourse = new BLLCourse();

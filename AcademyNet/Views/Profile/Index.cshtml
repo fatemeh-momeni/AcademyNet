@@ -20,7 +20,14 @@
     }
     <div class="row">
         @{
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            dynamic user;
+            if (User == null || User.Identity == null || !User.Identity.IsAuthenticated)
+            {
+                //هدایت به صفحه لاگین
+                Context.Response.Redirect("/Account/Login");
+                return;
+            }
+             user = await userManager.FindByNameAsync(User.Identity.Name);
         }
 
         <div class="col-12 col-lg-3">
