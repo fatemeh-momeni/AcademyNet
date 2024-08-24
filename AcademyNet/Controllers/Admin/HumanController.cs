@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Business_Entity;
+﻿using Business_Entity;
 using BusinessLogicLayer;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
 namespace AcademyNet.Controllers.Admin
@@ -13,7 +12,7 @@ namespace AcademyNet.Controllers.Admin
         {
             webHostEnvironment = _webHostEnvironment;
         }
-        public IActionResult Index()
+        public IActionResult Edit()
         {
             return View();
         }
@@ -26,7 +25,7 @@ namespace AcademyNet.Controllers.Admin
         {
             BLLHuman bLLHuman = new BLLHuman();
 
-            return View("ShowTeachersAccount",bLLHuman.GetSkip(0));
+            return View("ShowTeachersAccount", bLLHuman.GetSkip(0));
         }
         [HttpPost]
         public void Create(Models.Human human)
@@ -74,15 +73,15 @@ namespace AcademyNet.Controllers.Admin
         }
         public IActionResult Search(string tags)
         {
-            JArray jsonArray= new JArray(tags);
+            JArray jsonArray = new JArray(tags);
             dynamic data = JArray.Parse(jsonArray[0].ToString());
             List<string> split = new List<string>();
             foreach (dynamic item in data)
             {
-                split.Add(item.tag.ToString()); 
+                split.Add(item.tag.ToString());
 
             }
-            BLLHuman bLLHuman= new BLLHuman();
+            BLLHuman bLLHuman = new BLLHuman();
             List<Human> humans = bLLHuman.Search(split);
             return View("ShowTeachersAccount", humans);
         }

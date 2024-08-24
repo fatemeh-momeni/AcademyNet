@@ -11,7 +11,7 @@ namespace AcademyNet.Controllers.Admin
         {
             webHostEnvironment = _webHostEnvironment;
         }
-        public IActionResult Index()
+        public IActionResult Create()
         {
             BLLHuman bLLHuman = new BLLHuman();
             ViewBag.BLLHuman = bLLHuman.GetAllRecords();
@@ -72,10 +72,10 @@ namespace AcademyNet.Controllers.Admin
             return RedirectToAction(nameof(ShowAllCourse));
         }
 
-        public IActionResult Create()
-        {
-            return View("Create");
-        }
+        //public IActionResult Create()
+        //{
+        //    return View("Create");
+        //}
         //جزئیات دوره
         public IActionResult Details(int courseID)
         {
